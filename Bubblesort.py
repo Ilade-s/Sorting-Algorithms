@@ -27,16 +27,14 @@ def BubbleSort(it, reverse=False):
     - it : iterable (same type as it)
         sorted iterable
     """
-    npasses = 0
-    for p in range(len(it)-npasses):
-        for i in range(len(it)):
+    for p in range(len(it)):
+        for i in range(len(it)-p):
             iit = copy.deepcopy(it)
             if i<=len(it)-2:
                 if it[i]>it[i+1]:
                     iit[i] = it[i+1]
                     iit[i+1] = it[i]
             it = copy.deepcopy(iit)
-        npasses += 1
     if reverse:
         it.reverse()
     
