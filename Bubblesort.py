@@ -1,12 +1,18 @@
 """
 First sorting algorithm
-The principle will be to iterate the list and switch the element with the next, depending if it's superior or inferior
+The principle will be to iterate the list and Bubble the element with the next, depending if it's superior or inferior
 """
 import copy
 
-def SwitchSort(it, reverse=False):
+def BubbleSort(it, reverse=False):
     """
-    Sorting algorithm
+    Sorting algorithm of Bubble Sort type
+
+    COMPLEXITY :
+    ------------
+    High/Very Bad : iterate the list (n operation) completely n times
+
+    O(n*n) = O(n^2)
 
     PARAMETRES :
     ------------
@@ -21,7 +27,7 @@ def SwitchSort(it, reverse=False):
     - it : iterable (same type as it)
         sorted iterable
     """
-    for p in range(len(it)*3):
+    for p in range(len(it)):
         for i in range(len(it)):
             iit = copy.deepcopy(it)
             if i<=len(it)-2:
@@ -38,14 +44,14 @@ def SwitchSort(it, reverse=False):
 if __name__=="__main__": 
     import random as rnd
     # random list of len(4)
-    # l = [rnd.randint(0,5) for i in range(4)]
-    l = [4,1,3,2]
+    l = [rnd.randint(0,200) for i in range(200)]
+    # l = [4,1,3,2]
     print(l)
 
 
-    lAO = SwitchSort(l)
+    lAO = BubbleSort(l)
     print("Asending order :",lAO)
 
-    lDO = SwitchSort(l, True)
-    print("Descending order :",lDO)
+    #lDO = BubbleSort(l, True)
+    #print("Descending order :",lDO)
 
