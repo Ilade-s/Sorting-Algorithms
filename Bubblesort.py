@@ -10,9 +10,9 @@ def BubbleSort(it, reverse=False):
 
     COMPLEXITY :
     ------------
-    High/Very Bad : iterate the list (n operation) completely n times
+    High/Very Bad or Average : iterate the list (n operation) completely n times
 
-    O(n*n) = O(n^2)
+    O(n*n) = O(n^2) ou O(n(n-1)/4)
 
     PARAMETRES :
     ------------
@@ -27,7 +27,8 @@ def BubbleSort(it, reverse=False):
     - it : iterable (same type as it)
         sorted iterable
     """
-    for p in range(len(it)):
+    npasses = 0
+    for p in range(len(it)-npasses):
         for i in range(len(it)):
             iit = copy.deepcopy(it)
             if i<=len(it)-2:
@@ -35,6 +36,7 @@ def BubbleSort(it, reverse=False):
                     iit[i] = it[i+1]
                     iit[i+1] = it[i]
             it = copy.deepcopy(iit)
+        npasses += 1
     if reverse:
         it.reverse()
     
@@ -44,7 +46,7 @@ def BubbleSort(it, reverse=False):
 if __name__=="__main__": 
     import random as rnd
     # random list of len(4)
-    l = [rnd.randint(0,50) for i in range(50)]
+    l = [rnd.randint(0,200) for i in range(200)]
     # l = [4,1,3,2]
     print(l)
 
