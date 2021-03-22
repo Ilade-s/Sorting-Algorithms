@@ -44,7 +44,7 @@ def BubbleSort(it, reverse=False):
 if __name__=="__main__": 
     import random as rnd
     # random list of len(4)
-    l = [rnd.randint(0,200) for i in range(200)]
+    l = [rnd.randint(0,50) for i in range(50)]
     # l = [4,1,3,2]
     print(l)
 
