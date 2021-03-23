@@ -3,8 +3,10 @@ First sorting algorithm
 The principle will be to iterate the list and Bubble the element with the next, depending if it's superior or inferior
 """
 import copy
+import timeit
 
-def BubbleSort(it, reverse=False):
+l = []
+def BubbleSort(it=l, reverse=False):
     """
     Sorting algorithm of Bubble Sort type
 
@@ -27,6 +29,7 @@ def BubbleSort(it, reverse=False):
     - it : iterable (same type as it)
         sorted iterable
     """
+    it = l
     for p in range(len(it)):
         for i in range(len(it)-p):
             iit = copy.deepcopy(it)
@@ -47,7 +50,7 @@ if __name__=="__main__":
     l = [rnd.randint(0,200) for i in range(200)]
     # l = [4,1,3,2]
     print(l)
-
+    print("Time passed :",timeit.timeit(BubbleSort, number=1))
 
     lAO = BubbleSort(l)
     print("Asending order :",lAO)
