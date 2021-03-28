@@ -2,7 +2,6 @@
 First sorting algorithm
 The principle will be to iterate the list and Bubble the element with the next, depending if it's superior or inferior
 """
-import copy
 import timeit
 
 l = []
@@ -32,12 +31,11 @@ def BubbleSort(it=l, reverse=False):
     it = l
     for p in range(len(it)):
         for i in range(len(it)-p):
-            iit = copy.deepcopy(it)
             if i<=len(it)-2:
                 if it[i]>it[i+1]:
-                    iit[i] = it[i+1]
-                    iit[i+1] = it[i]
-            it = copy.deepcopy(iit)
+                    ii = it[i]
+                    it[i] = it[i+1]
+                    it[i+1] = ii
     if reverse:
         it.reverse()
     
@@ -50,7 +48,7 @@ if __name__=="__main__":
     l = [rnd.randint(0,200) for i in range(200)]
     # l = [4,1,3,2]
     print(l)
-    print("Time passed :",timeit.timeit(BubbleSort, number=1))
+    print("Time passed :",round(timeit.timeit(BubbleSort, number=1), 5))
 
     lAO = BubbleSort(l)
     print("Asending order :",lAO)
