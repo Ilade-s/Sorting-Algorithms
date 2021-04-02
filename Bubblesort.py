@@ -30,21 +30,29 @@ def BubbleSort(it=l, reverse=False):
     """
     it = l
     for p in range(len(it)):
+        mp = 0
         for i in range(len(it)-p):
             if i<=len(it)-2:
                 if it[i]>it[i+1]:
+                    mp += 1
                     ii = it[i]
                     it[i] = it[i+1]
                     it[i+1] = ii
-    if reverse:
-        it.reverse()
-    
-    return it
+        # Optimisation
+        if mp==0: 
+            if reverse:
+                it.reverse()
+            return it
+        elif mp==(len(it)-2): 
+            if not reverse:
+                it.reverse()
+            return it
 
 # Test fonction
 if __name__=="__main__": 
     import random as rnd
-    
+    from time import perf_counter_ns
+    """
     # random list of len(4)
     l = [rnd.randint(0,200) for i in range(200)]
     # l = [4,1,3,2]
@@ -56,4 +64,28 @@ if __name__=="__main__":
 
     #lDO = BubbleSort(l, True)
     #print("Descending order :",lDO)
+    """
+    listTimeBS = [[],[]]
+    rlist = [5,500,2000,5000,10000,15000,20000]
 
+    for r in rlist: # + favorable
+        l = list(range(r))
+        start = perf_counter_ns()
+        BubbleSort(l)
+        end = perf_counter_ns()
+        execution_time = round((end - start)*10**(-6),3)
+        listTimeBS[0].append(execution_time)
+        #print("Time passed :",listTimeBS[0][rlist.index(r)])
+
+    for r in rlist: # - favorable
+        l = list(range(r))
+        l.reverse()
+        start = perf_counter_ns()
+        BubbleSort(l)
+        end = perf_counter_ns()
+        execution_time = round((end - start)*10**(-6),3)
+        listTimeBS[1].append(execution_time)
+        #print("Time passed :",listTimeBS[1][rlist.index(r)])
+    
+    print("+ favorable BubbleSort() (en ms) :",listTimeBS[0])
+    print("- favorable BubbleSort() (en ms) :",listTimeBS[1])
