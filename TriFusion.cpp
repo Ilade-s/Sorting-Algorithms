@@ -5,11 +5,11 @@
 
 using namespace std;
 
-vector<int> fusion(vector<int> A,vector<int> B,int len){
+vector<int> fusion(vector<int> A,vector<int> B){
     vector<int> fe;
     vector<int> a;
     vector<int> b;
-    vector<int> resultat(len);
+    vector<int> resultat(B.size() + A.size());
 
     if (A.size() == 0){
         return B;
@@ -24,7 +24,7 @@ vector<int> fusion(vector<int> A,vector<int> B,int len){
         for (int i = 1; i < A.size(); i++)
             a.push_back(A[i]);
 
-        vector<int> f = fusion(a,B,len);
+        vector<int> f = fusion(a,B);
 
         merge(fe.begin(), fe.end(), f.begin(), f.end(), resultat.begin());
 
@@ -37,7 +37,7 @@ vector<int> fusion(vector<int> A,vector<int> B,int len){
         for (int i = 1; i < B.size(); i++)
             b.push_back(B[i]);
  
-        vector<int> f = fusion(A,b,len);
+        vector<int> f = fusion(A,b);
 
         merge(fe.begin(), fe.end(), f.begin(), f.end(), resultat.begin());
 
@@ -50,8 +50,6 @@ vector<int> TriFusion(vector<int> l){
 
     vector<int> a; // première moitié de la liste
     vector<int> b; // seconde moitié de la liste
-
-    cout << "\n";
 
     int len = l.size();
 
@@ -69,8 +67,16 @@ vector<int> TriFusion(vector<int> l){
             a.push_back(l[i]);
         for (int i = divn; i < len; i++)
             b.push_back(l[i]);
-
-        return fusion(TriFusion(a),TriFusion(b),len);
+        /*   
+        cout << "a : ";
+        for (vector<int>::iterator it = a.begin(); it != a.end(); it++)
+            cout << *it << ' ';
+        cout << "\nb : ";
+        for (vector<int>::iterator it = b.begin(); it != b.end(); it++)
+            cout << *it << ' ';
+        cout << "\n";
+        */
+        return fusion(TriFusion(a),TriFusion(b));
     }
     
 }
