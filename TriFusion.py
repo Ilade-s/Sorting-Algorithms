@@ -16,7 +16,7 @@ def TriFusion(l, reverse=False):
     if n<=1: # Si vide ou un seul éléments, alors déjà trié
         return l
 
-    if n>2000: # Pour eviter un stack overflow / Recursion error
+    if n>2000: # Pour eviter un stack overflow / Recursion error (augmente un peu la complexité : gestion de liste...)
         listtris = []
         # parties complètes de len = 1000
         for p in range(n//1000):
@@ -62,21 +62,20 @@ def fusion(A,B):
 
 if __name__=='__main__': # Test
     import random as rnd
+    r = int(input("Nombre d'éléments dans la liste : "))
     #r = 20000
     #l = [4,1,3,2]
-    timeListFS = []
-    rlist = [5,500,2000,5000,10000,15000,20000]
-    for r in rlist:
-        l = [rnd.randint(0,r) for i in range(r)]
-        #print(l)
-        start = perf_counter_ns()
-        l = TriFusion(l)
-        end = perf_counter_ns()
-        execution_time = round((end - start)*10**(-6),3)
-        print("Time passed (ms) :",execution_time)
-        timeListFS.append(execution_time)
-        #print("liste triée :",l)
-        print("Tri fait")
-    print(timeListFS)
+    #timeListFS = []
+    l = [rnd.randint(0,r) for i in range(r)]
+    #print(l)
+    start = perf_counter_ns()
+    l = TriFusion(l)
+    end = perf_counter_ns()
+    execution_time = round((end - start)*10**(-6),3)
+    print("Time passed (ms) :",execution_time)
+    #timeListFS.append(execution_time)
+    #print("liste triée :",l)
+    print("Tri fait")
+    #print(timeListFS)
 
 
