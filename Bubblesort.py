@@ -2,7 +2,6 @@
 First sorting algorithm
 The principle will be to iterate the list and Bubble the element with the next, depending if it's superior or inferior
 """
-import timeit
 
 l = []
 def BubbleSort(it=l, reverse=False):

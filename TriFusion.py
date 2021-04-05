@@ -4,6 +4,8 @@ Principle : https://fr.wikipedia.org/wiki/Tri_fusion
 """
 import sys
 sys.setrecursionlimit(250000)
+from time import perf_counter_ns
+from copy import deepcopy
 
 def TriFusion(l, reverse=False):
     """
@@ -13,6 +15,30 @@ def TriFusion(l, reverse=False):
 
     if n<=1: # Si vide ou un seul éléments, alors déjà trié
         return l
+
+    if n>2000: # Pour eviter un stack overflow / Recursion error
+        listtris = []
+        # parties complètes de len = 1000
+        for p in range(n//1000):
+            i = 1000*p
+            listtris.append(fusion(TriFusion(l[i:i+1000]),TriFusion(l[i+1000:1000*(p+1)])))
+        if n%1000!=0:
+            # partie finale/incomplète (si existante)
+            i = (n//1000)*1000
+            fl = n-i
+            listtris.append(fusion(TriFusion(l[i:i+fl//2]),TriFusion(l[i+fl//2:])))
+        #print(listtris)
+        while len(listtris)>1:
+            for i in range(len(listtris)-1):
+                tmp = []
+                tmp.append(fusion(listtris[i],listtris[i+1]))
+            listtris = deepcopy(tmp)
+        #print(listtris)
+        #print(len(listtris))
+        return listtris[0]
+
+
+        
 
     else: 
         return fusion(TriFusion(l[:n//2]),TriFusion(l[n//2:]))
@@ -36,12 +62,21 @@ def fusion(A,B):
 
 if __name__=='__main__': # Test
     import random as rnd
-    r = 2000
+    #r = 20000
     #l = [4,1,3,2]
-    l = [rnd.randint(0,r) for i in range(r)]
-    #print(l)
-    l = TriFusion(l)
-    #print("liste triée :",l)
-    print("Tri fait")
+    timeListFS = []
+    rlist = [5,500,2000,5000,10000,15000,20000]
+    for r in rlist:
+        l = [rnd.randint(0,r) for i in range(r)]
+        #print(l)
+        start = perf_counter_ns()
+        l = TriFusion(l)
+        end = perf_counter_ns()
+        execution_time = round((end - start)*10**(-6),3)
+        print("Time passed (ms) :",execution_time)
+        timeListFS.append(execution_time)
+        #print("liste triée :",l)
+        print("Tri fait")
+    print(timeListFS)
 
 
