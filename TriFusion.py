@@ -7,7 +7,7 @@ sys.setrecursionlimit(250000)
 from time import perf_counter_ns
 from copy import deepcopy
 
-def TriFusion(l, reverse=False):
+def TriFusion(l):
     """
     Implementation of the "tri fusion" alogorithm
     """
