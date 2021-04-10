@@ -72,9 +72,9 @@ vector<int> TriFusion(vector<int> l){
 
     else if (len > 2000) // fix Stack Overflow
     {
-        vector<int> lt;
+        vector<vector<int>> lt;
 
-        for (int p = 0; p < len/2000; p++) // parts complètes (de 2000) [i+1000:1000*(p+1)]
+        for (int p = 0; p < len/1000; p++) // parts complètes (de 2000) [i+1000:1000*(p+1)]
         {
             int i = p*1000;
             lt.push_back(fusion(TriFusion(Slicer(l,i,i+1000)),TriFusion(Slicer(l,i+1000,1000*(p+1)))));
@@ -86,14 +86,15 @@ vector<int> TriFusion(vector<int> l){
             int mid = j+fl/2;
             lt.push_back(fusion(TriFusion(Slicer(l,j,mid)),TriFusion(Slicer(l,mid,len))));
         }
-        while (lt.size()>1)
+        while (lt.size()>1) // tri des parts (en arbre)
         {
+            vector<vector<int>> tmp;
+
             for (int i = 0; i < lt.size()-1; i++)
             {
-                vector<int> tmp;
                 tmp.push_back(fusion(lt[i],lt[i+1]));
             }
-            
+            lt = tmp;
         }
 
         return lt[0];
@@ -133,19 +134,19 @@ int main(){
 
     // Inputs User (si désactivés, variables par défaut utilisées)
     // récupération du nombre d'éléments
-    printf("Combien d'elements dans la liste ? \n");
+    printf("Combien d'elements dans la liste ? ");
     cin >> Nelt;
 
     // récupération de la valeur maximale des nombres aléatoire
-    printf("Quelle valeur maximale (pour chaque element) ? \n");
+    printf("Quelle valeur maximale (pour chaque element) ? ");
     cin >> Nrange;
 
     // demande affichage ou non
-    printf("Affichage des listes ou non ? ('O' ou 'N') \n");
+    printf("Affichage des listes ou non ? ('O' ou 'N') ");
     cin >> aff;
 
     // demande croissant ou décroissant
-    printf("Tri croissant ou decroissant ? ('C' ou 'D') \n");
+    printf("Tri croissant ou decroissant ? ('C' ou 'D') ");
     cin >> SortMode;
     printf("\n");
 
@@ -172,7 +173,7 @@ int main(){
     
     if (aff == "O")
     {
-        printf("liste tiree : \n");
+        printf("\nliste tiree : \n");
         for (vector<int>::iterator it = listetriee.begin(); it != listetriee.end(); it++)
             cout << *it << ' ';
     }
