@@ -2,8 +2,20 @@
 #include <random>
 #include <ctime>
 #include <algorithm>
+#include <stdio.h>
 
 using namespace std;
+
+vector<int> Slicer(vector<int> v, int start, int stop){ // Renvoie une part de liste : [start;stop[
+    vector<int> slice;
+
+    for (int i = start; i < stop; i++)
+    {
+        slice.push_back(v[i]);
+    }
+    
+    return slice;
+}
 
 vector<int> fusion(vector<int> A,vector<int> B){
     vector<int> fe;
@@ -58,6 +70,35 @@ vector<int> TriFusion(vector<int> l){
         return l;
     }
 
+    else if (len > 2000) // fix Stack Overflow
+    {
+        vector<int> lt;
+
+        for (int p = 0; p < len/2000; p++) // parts complètes (de 2000) [i+1000:1000*(p+1)]
+        {
+            int i = p*1000;
+            lt.push_back(fusion(TriFusion(Slicer(l,i,i+1000)),TriFusion(Slicer(l,i+1000,1000*(p+1)))));
+        }
+        if (len%2000!=0) // part incomplète (si existante)
+        {
+            int j = (len/1000)*1000;
+            int fl = len-j;
+            int mid = j+fl/2;
+            lt.push_back(fusion(TriFusion(Slicer(l,j,mid)),TriFusion(Slicer(l,mid,len))));
+        }
+        while (lt.size()>1)
+        {
+            for (int i = 0; i < lt.size()-1; i++)
+            {
+                vector<int> tmp;
+                tmp.push_back(fusion(lt[i],lt[i+1]));
+            }
+            
+        }
+
+        return lt[0];
+    }
+
     else
     {
         int divn = len/2;
@@ -82,7 +123,7 @@ vector<int> TriFusion(vector<int> l){
 }
 
 int main(){
-    cout << "Bienvenue dans mon programme de tri!\n";
+    printf("Bienvenue dans mon programme de tri!\n");
 
     // initialisation variables
     int Nelt = 200;
@@ -92,25 +133,25 @@ int main(){
 
     // Inputs User (si désactivés, variables par défaut utilisées)
     // récupération du nombre d'éléments
-    cout << "Combien d'elements dans la liste ? ";
+    printf("Combien d'elements dans la liste ? \n");
     cin >> Nelt;
 
     // récupération de la valeur maximale des nombres aléatoire
-    cout << "Quelle valeur maximale (pour chaque element) ? ";
+    printf("Quelle valeur maximale (pour chaque element) ? \n");
     cin >> Nrange;
 
     // demande affichage ou non
-    cout << "Affichage des listes ou non ? ('O' ou 'N') ";
+    printf("Affichage des listes ou non ? ('O' ou 'N') \n");
     cin >> aff;
 
     // demande croissant ou décroissant
-    cout << "Tri croissant ou decroissant ? ('C' ou 'D') ";
+    printf("Tri croissant ou decroissant ? ('C' ou 'D') \n");
     cin >> SortMode;
-    cout << "\n";
+    printf("\n");
 
     if (aff == "N")
     {
-        cout << "Sans affichage" << "\n";
+        printf("Sans affichage\n");
     }
     
     srand(std::time(NULL)); // setup rand()
@@ -122,7 +163,7 @@ int main(){
     if (aff == "O")
     {
         // affichage liste non triée
-        cout << "liste initiale : ";
+        printf("liste initiale : \n");
         for (vector<int>::iterator it = listeNum.begin(); it != listeNum.end(); it++)
             cout << *it << ' ';
     }
@@ -131,12 +172,12 @@ int main(){
     
     if (aff == "O")
     {
-        cout << "liste tiree : ";
+        printf("liste tiree : \n");
         for (vector<int>::iterator it = listetriee.begin(); it != listetriee.end(); it++)
             cout << *it << ' ';
     }
 
-    cout << "\ntri termine\n";
+    printf("\nTri termine\n");
     
     return 1;
 }
