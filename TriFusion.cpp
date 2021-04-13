@@ -89,8 +89,7 @@ vector<int> TriFusion(vector<int> l){
         }
         while (lt.size()>1) // tri des parts (en arbre)
         {
-            vector<vector<int>> tmp;
-
+            vector<vector<int>> tmp = {};
             for (int i = 0; i < lt.size()-1; i++)
             {
                 tmp.push_back(fusion(lt[i],lt[i+1]));
@@ -178,7 +177,7 @@ int main(){
         for (vector<int>::iterator it = listetriee.begin(); it != listetriee.end(); it++)
             cout << *it << ' ';
     }
-
+    cout << "\nTaille liste triee : " << listetriee.size();
     printf("\nTri termine\n");
     
     return 1;
