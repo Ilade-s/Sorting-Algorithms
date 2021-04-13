@@ -6,7 +6,8 @@
 
 using namespace std;
 
-vector<int> Slicer(vector<int> v, int start, int stop){ // Renvoie une part de liste : [start;stop[
+// Renvoie une part de liste : [start;stop[
+vector<int> Slicer(vector<int> v, int start, int stop){ 
     vector<int> slice;
 
     for (int i = start; i < stop; i++)
@@ -16,7 +17,7 @@ vector<int> Slicer(vector<int> v, int start, int stop){ // Renvoie une part de l
     
     return slice;
 }
-
+// Fusionne les listes A et B
 vector<int> fusion(vector<int> A,vector<int> B){
     vector<int> fe;
     vector<int> a;
@@ -57,7 +58,7 @@ vector<int> fusion(vector<int> A,vector<int> B){
     }
     
 }
-
+// Trie la liste L
 vector<int> TriFusion(vector<int> l){
 
     vector<int> a; // première moitié de la liste
