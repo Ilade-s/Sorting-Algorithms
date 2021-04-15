@@ -3,6 +3,7 @@
 #include <ctime>
 #include <algorithm>
 #include <stdio.h>
+#include <stack>
 
 using namespace std;
 
@@ -17,47 +18,7 @@ vector<int> Slicer(vector<int> v, int start, int stop){
     
     return slice;
 }
-// Fusionne les listes A et B
-vector<int> fusion(vector<int> A,vector<int> B){
-    vector<int> fe;
-    vector<int> a;
-    vector<int> b;
-    vector<int> resultat(B.size() + A.size());
 
-    if (A.size() == 0){
-        return B;
-    }
-    else if (B.size() == 0){
-        return A;
-    }
-
-    else if (A[0]<=B[0]){
-        fe.push_back(A[0]);
-
-        for (int i = 1; i < A.size(); i++)
-            a.push_back(A[i]);
-
-        vector<int> f = fusion(a,B);
-
-        merge(fe.begin(), fe.end(), f.begin(), f.end(), resultat.begin());
-
-        return (resultat);
-    }
-
-    else{
-        fe.push_back(B[0]);
-
-        for (int i = 1; i < B.size(); i++)
-            b.push_back(B[i]);
- 
-        vector<int> f = fusion(A,b);
-
-        merge(fe.begin(), fe.end(), f.begin(), f.end(), resultat.begin());
-
-        return (resultat);
-    }
-    
-}
 // Trie la liste L
 vector<int> TriFusion(vector<int> l){
 
@@ -71,56 +32,51 @@ vector<int> TriFusion(vector<int> l){
         return l;
     }
 
-    else if (len > 2000) // fix Stack Overflow
-    {
-        vector<vector<int>> lt;
-
-        for (int p = 0; p < len/1000; p++) // parts complètes (de 2000) [i+1000:1000*(p+1)]
-        {
-            int i = p*1000;
-            lt.push_back(fusion(TriFusion(Slicer(l,i,i+1000)),TriFusion(Slicer(l,i+1000,1000*(p+1)))));
-        }
-        if (len%2000!=0) // part incomplète (si existante)
-        {
-            int j = (len/1000)*1000;
-            int fl = len-j;
-            int mid = j+fl/2;
-            lt.push_back(fusion(TriFusion(Slicer(l,j,mid)),TriFusion(Slicer(l,mid,len))));
-        }
-        while (lt.size()>1) // tri des parts (en arbre)
-        {
-            vector<vector<int>> tmp = {};
-            for (int i = 0; i < lt.size()-1; i++)
-            {
-                tmp.push_back(fusion(lt[i],lt[i+1]));
-            }
-            lt = tmp;
-        }
-
-        return lt[0];
-    }
-
     else
     {
-        int divn = len/2;
+        vector<int> sl; // liste triée
+        int mid = len/2;
 
-        // Remplissage list slices
-        for (int i = 0; i < divn; i++)
-            a.push_back(l[i]);
-        for (int i = divn; i < len; i++)
-            b.push_back(l[i]);
-        /*   
-        cout << "a : ";
-        for (vector<int>::iterator it = a.begin(); it != a.end(); it++)
-            cout << *it << ' ';
-        cout << "\nb : ";
-        for (vector<int>::iterator it = b.begin(); it != b.end(); it++)
-            cout << *it << ' ';
-        cout << "\n";
-        */
-        return fusion(TriFusion(a),TriFusion(b));
+        vector<int> A = Slicer(l,0,mid);
+        vector<int> B = Slicer(l,mid,len);
+
+        A = TriFusion(A);
+        B = TriFusion(B);
+
+        while (sl.size()<len)
+        {
+            while (!A.empty() || !B.empty())
+            {
+                vector<int>::iterator it;
+                if (A.empty())
+                {
+                    sl.push_back(B[0]);
+                    it = B.begin();
+                    B.erase(it);
+                }
+                else if (B.empty())
+                {
+                    sl.push_back(A[0]);
+                    it = A.begin();
+                    A.erase(it);
+                }
+                else if (A[0]<=B[0])
+                {
+                    sl.push_back(A[0]);
+                    it = A.begin();
+                    A.erase(it);
+                }
+                else if (B[0]<=A[0])
+                {
+                    sl.push_back(B[0]);
+                    it = B.begin();
+                    B.erase(it);
+                }          
+            }       
+        }
+
+        return sl;     
     }
-    
 }
 
 int main(){
@@ -177,7 +133,7 @@ int main(){
         for (vector<int>::iterator it = listetriee.begin(); it != listetriee.end(); it++)
             cout << *it << ' ';
     }
-    cout << "\nTaille liste triee : " << listetriee.size();
+    //cout << "\nTaille liste triee : " << listetriee.size();
     printf("\nTri termine\n");
     
     return 1;

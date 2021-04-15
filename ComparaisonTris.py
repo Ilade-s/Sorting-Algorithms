@@ -24,7 +24,7 @@ plt.plot(rlist,listTimeIS[1],"o-",label="InsertSort() défavorable (reversed)")
 plt.plot(rlist,listTimesort[0],"go-",label="sorted() favorable (triée)")
 plt.plot(rlist,listTimesort[1],"bo-",label="sorted() défavorable (reversed)")
 # Tri fusion / fusion sort
-plt.plot(rlist,listTimeFS[0],"co-",label="Tri fusion")
+plt.plot(rlist,listTimeFS,"co-",label="Tri fusion")
 
 plt.legend()
 plt.ylabel("Temps d'exécution (en ms)")
