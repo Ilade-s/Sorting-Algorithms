@@ -50,15 +50,22 @@ vector<int> TriFusion(vector<int> l){
                 vector<int>::iterator it;
                 if (A.empty())
                 {
-                    sl.push_back(B[0]);
-                    it = B.begin();
-                    B.erase(it);
+                    while (!B.empty())
+                    {
+                        sl.push_back(B[0]);
+                        it = B.begin();
+                        B.erase(it);
+                    }
+                        
                 }
                 else if (B.empty())
                 {
-                    sl.push_back(A[0]);
-                    it = A.begin();
-                    A.erase(it);
+                    while (!A.empty())
+                    {
+                        sl.push_back(A[0]);
+                        it = A.begin();
+                        A.erase(it);
+                    }
                 }
                 else if (A[0]<=B[0])
                 {
@@ -133,7 +140,7 @@ int main(){
         for (vector<int>::iterator it = listetriee.begin(); it != listetriee.end(); it++)
             cout << *it << ' ';
     }
-    //cout << "\nTaille liste triee : " << listetriee.size();
+    cout << "\nTaille liste triee : " << listetriee.size();
     printf("\nTri termine\n");
     
     return 1;
