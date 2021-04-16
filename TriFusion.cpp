@@ -43,44 +43,41 @@ vector<int> TriFusion(vector<int> l){
         A = TriFusion(A);
         B = TriFusion(B);
 
-        while (sl.size()<len)
+        while (!A.empty() || !B.empty())
         {
-            while (!A.empty() || !B.empty())
+            vector<int>::iterator it;
+            if (A.empty())
             {
-                vector<int>::iterator it;
-                if (A.empty())
+                while (!B.empty())
                 {
-                    while (!B.empty())
-                    {
-                        sl.push_back(B[0]);
-                        it = B.begin();
-                        B.erase(it);
-                    }
-                        
+                    sl.push_back(B[0]);
+                    it = B.begin();
+                    B.erase(it);
                 }
-                else if (B.empty())
-                {
-                    while (!A.empty())
-                    {
-                        sl.push_back(A[0]);
-                        it = A.begin();
-                        A.erase(it);
-                    }
-                }
-                else if (A[0]<=B[0])
+                    
+            }
+            else if (B.empty())
+            {
+                while (!A.empty())
                 {
                     sl.push_back(A[0]);
                     it = A.begin();
                     A.erase(it);
                 }
-                else if (B[0]<=A[0])
-                {
-                    sl.push_back(B[0]);
-                    it = B.begin();
-                    B.erase(it);
-                }          
-            }       
-        }
+            }
+            else if (A[0]<=B[0])
+            {
+                sl.push_back(A[0]);
+                it = A.begin();
+                A.erase(it);
+            }
+            else if (B[0]<=A[0])
+            {
+                sl.push_back(B[0]);
+                it = B.begin();
+                B.erase(it);
+            }          
+        }       
 
         return sl;     
     }
