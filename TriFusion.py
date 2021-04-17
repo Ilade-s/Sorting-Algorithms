@@ -46,7 +46,7 @@ if __name__=='__main__': # Test
     #l = [4,1,3,2]
     #timeListFS = []
     #for r in rlist:
-    l = [rnd.randint(0,r) for i in range(r)]
+    l = [rnd.randrange(0,r) for i in range(r)]
     #print(l)
     start = perf_counter_ns()
     sl = TriFusion(l)
