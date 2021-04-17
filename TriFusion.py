@@ -2,7 +2,7 @@
 Second sorting algorithm
 Principle : https://fr.wikipedia.org/wiki/Tri_fusion
 """
-from time import perf_counter_ns
+from time import perf_counter_ns # mesure du temps d'exécution
 
 def TriFusion(l):
     """
