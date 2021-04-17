@@ -24,11 +24,11 @@ def TriFusion(l):
         while A!=[] or B!=[]:
             if A==[]:
                 sl += B
-                B = []
+                break
 
             elif B==[]:
                 sl += A
-                A = []
+                break
             
             elif A[0]<=B[0]:
                 sl.append(A.pop(0))
