@@ -33,7 +33,7 @@ if __name__=='__main__': # test
     for r in rlist: # + favorable
         l = list(range(r))
         start = perf_counter_ns()
-        sl = SelectSort(l)
+        SelectSort(l)
         end = perf_counter_ns()
         execution_time = round((end - start)*10**(-6),3)
         listTimeSS[0].append(execution_time)
@@ -43,7 +43,7 @@ if __name__=='__main__': # test
         l = list(range(r))
         l.reverse()
         start = perf_counter_ns()
-        sl = SelectSort(l)
+        SelectSort(l)
         end = perf_counter_ns()
         execution_time = round((end - start)*10**(-6),3)
         listTimeSS[1].append(execution_time)

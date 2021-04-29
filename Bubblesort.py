@@ -38,6 +38,7 @@ def BubbleSort(it=l, reverse=False):
                     it[i] = it[i+1]
                     it[i+1] = ii
         # Optimisation
+        """
         if mp==0: 
             if reverse:
                 it.reverse()
@@ -46,6 +47,7 @@ def BubbleSort(it=l, reverse=False):
             if not reverse:
                 it.reverse()
             return it
+        """
 
 # Test fonction
 if __name__=="__main__": 
