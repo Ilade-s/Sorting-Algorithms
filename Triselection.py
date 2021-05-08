@@ -19,25 +19,25 @@ def SelectSort(l):
         min = i
         for j in range(i+1,n):
             if l[j] < l[min]: min = j
-        tmp = l[i]
-        l[i] = l[min]
-        l[min] = tmp
+        l[i], l[min] = l[min], l[i]
 
 
 if __name__=='__main__': # test
     listTimeSS = [[],[]]
     listTimesort = [[],[]]
-    rlist = [5,500,2000,5000,10000,15000,20000]
-    """
+    rlist = [5]
+    
     # SelectSort()
     for r in rlist: # + favorable
         l = list(range(r))
+        print(l)
         start = perf_counter_ns()
         SelectSort(l)
+        print(l)
         end = perf_counter_ns()
         execution_time = round((end - start)*10**(-6),3)
         listTimeSS[0].append(execution_time)
-        # print("Time passed :",listTime[rlist.index(r)])
+        print("Time passed :",listTimeSS[0][rlist.index(r)])
 
     for r in rlist: # - favorable
         l = list(range(r))
@@ -73,8 +73,8 @@ if __name__=='__main__': # test
     print("- favorable SelectSort() (en ms) :",listTimeSS[1])
     print("+ favorable sort() (en ms) :",listTimesort[0])
     print("- favorable sort() (en ms) :",listTimesort[1])
-    """
     
+    """
     listTimeSS[0] =  [0.005, 8.097, 138.013, 792.229, 3269.769, 8257.537, 12960.932]
     listTimeSS[1] = [0.271, 6.961, 123.29, 834.456, 3479.22, 7811.064, 16056.485]
     listTimesort[0] = [0.002, 0.003, 0.011, 0.026, 0.052, 0.088, 0.132]
@@ -92,3 +92,4 @@ if __name__=='__main__': # test
     plt.ylabel("Temps d'exécution (en ms)")
     plt.xlabel("Nombre d'éléments (n)")
     plt.show()
+    """
